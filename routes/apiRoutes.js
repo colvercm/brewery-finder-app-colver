@@ -8,3 +8,7 @@ router.get("/logout", controllers.auth.logout);
 router.post("/signup", controllers.user.create);
 
 module.exports = router;
+
+
+
+     

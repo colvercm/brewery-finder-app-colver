@@ -1,0 +1,21 @@
+{{> header}}
+<main>
+  <h1>Breweries I Want to Visit:</h1>
+      <ul id="list">
+        {{#each tovisit}}
+          <li class="list-breweries">
+            <button
+              data-id="{{_id}}"
+              data-done="{{is_done}}"
+              {{#if is_done}}
+              class="strike"
+              {{/if}}
+            >
+              {{add}}
+            </button>
+          </li>
+        {{/each}}
+      </ul>
+</main>
+
+

@@ -1,32 +1,36 @@
+const { Schema, model, models } = require("mongoose");
 const bcrypt = require("bcrypt");
-const db = require("../config/connection");
 
-async function findByUsername(username) {
-  const [[user]] = await db.query(
-    `SELECT * FROM users WHERE username=?`,
-    username
-  );
-  return user;
-}
+const UserSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minLength: 5,
+      maxLength: 20,
+    },
+    breweries: [brewerySchema]
+  },
+  {
+    methods: {
+      checkPassword(password) {
+        return bcrypt.compare(password, this.password);
+      },
+    },
+  }
+);
 
-async function checkPassword(plain, hash) {
-  return bcrypt.compare(plain, hash);
-}
-
-async function create(username, password) {
-  const hashedPass = await bcrypt.hash(password, 10);
-
-  await db.query(`INSERT INTO users (username, password) VALUES (?, ?)`, [
-    username,
-    hashedPass,
-  ]);
-
-  return findByUsername(username);
-}
 // hashes the password before it's stored in mongo
+UserSchema.pre("save", async function (next) {
+  // the isNew check prevents mongoose from re-hashing the password when the user is updated for any reason
+  if (this.isNew)
+    this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
-module.exports = {
-  create,
-  checkPassword,
-  findByUsername,
-};
+module.exports = models.User || model("User", UserSchema);

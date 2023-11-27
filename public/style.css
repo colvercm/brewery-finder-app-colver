@@ -1,9 +1,9 @@
 :root {
   --black: #020303;
-  --dark-grey: #171c1c;
+  --dark-grey: #232525;
   --light-grey: #a7b9b7;
-  --primary: #5cc1bb;
-  --primary-dark: #41aaa3;
+  --primary: #c1a45c;
+  --primary-dark: #daab11;
   --secondary: hsl(15deg 100% 62%);
   --secondary-light: hsl(15deg 100% 70%);
   --text-color: #f5fffe;
@@ -12,7 +12,7 @@
 }
 
 body {
-  background-color: var(--primary-dark);
+  background-color: var(--light-grey);
   color: var(--text-color);
   font-size: var(--font-size);
   line-height: 1.5;
@@ -29,7 +29,7 @@ main {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
-  background-color: var(--black);
+  background-color: var(--dark-grey);
   padding: var(--space) calc(var(--space) * 3);
   text-align: center;
 }

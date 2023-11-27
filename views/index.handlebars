@@ -1,7 +1,41 @@
 {{> header}}
 <main>
-  <h1>This is the home page!</h1>
-  <p>Currently, you are {{#unless isLoggedIn}} NOT {{/unless}} logged in.</p>
-  <p>You should {{#unless isLoggedIn}}NOT{{/unless}} be able to access <a href="/private">this page</a>.</p>
-  <p>Use the header above to {{#if isLoggedIn}} logout{{else}} login or create an account{{/if}}.</p>
+<p>{{#unless isLoggedIn}}Currently, you are  <b>NOT</b>  logged in. {{/unless}}</p>
+
+  {{#if isLoggedIn}}
+  <h1>Begin Your Search</h1>
+  
+  <p>Browse local breweries near you. 
+    <br> 
+  <div>
+    <form action="/index" method="POST">
+      <input id="search-bar" type="text" name="search" placeholder="Begin your search">
+      <button id="search-button" class="search" type="submit">Cheers 🍻</button>
+    </form>
+   
+   <div id="search-list">
+    <ul>
+      <li>
+
+      </li>
+    </ul>
+
+   </div>
+<br>
+  <p>Want create a list of breweries to visit on your trip?</p>
+  <form id="add-brewery" action="/list" method="POST">
+  <label for="list">Create Brewery Wish List:</label> <br>
+    <input type="text" name="brewery" id="add" placeholder="Brewery Name" value="{{_id}}">
+    <button type="submit">Add Brewery</button>
+  </form>
+
+<script>document.getElementById("search-button").addEventListener("click", displayData);
+function displayData() {
+  document.getElementById("search-list").innerHTML = Data();
+};</script>
+
+    {{/if}}
+
 </main>
+<script src="breweries.js"></script>
+
